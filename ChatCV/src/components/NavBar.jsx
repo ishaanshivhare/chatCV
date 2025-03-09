@@ -23,7 +23,7 @@ export default function NavBar() {
                             to='/'
                             className='text-2xl font-bold text-blue-600'
                         >
-                            AI Resume Builder
+                            ChatCV
                         </Link>
                     </div>
 
