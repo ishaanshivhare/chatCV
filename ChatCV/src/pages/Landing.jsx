@@ -1,3 +1,4 @@
+import { Link, Links } from "react-router-dom";
 import {
     EnvelopeIcon,
     LinkIcon,
@@ -66,9 +67,12 @@ export default function Landing() {
                         intelligence and proven templates
                     </p>
                     <div className='mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8'>
-                        <button className='inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700'>
+                        <Link
+                            to='/Chat'
+                            className='inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700'
+                        >
                             Get Started
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
