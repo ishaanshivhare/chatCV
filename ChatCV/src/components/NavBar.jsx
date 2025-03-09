@@ -1,42 +1,70 @@
 import { Link } from "react-router-dom";
-import {
-    ChatBubbleLeftIcon,
-    DocumentTextIcon,
-    HomeIcon,
-} from "@heroicons/react/24/outline";
+import { useAuth } from "../context/AuthContext";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 export default function NavBar() {
+    const { user } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Logout error:", error);
+        }
+    };
+
     return (
         <nav className='bg-white shadow-lg'>
             <div className='max-w-7xl mx-auto px-4'>
                 <div className='flex justify-between h-16'>
                     <div className='flex items-center'>
-                        <span className='text-2xl font-bold text-blue-600'>
-                            ChatCV
-                        </span>
-                    </div>
-                    <div className='flex items-center space-x-8'>
                         <Link
                             to='/'
-                            className='flex items-center text-gray-700 hover:text-blue-600'
+                            className='text-2xl font-bold text-blue-600'
                         >
-                            <HomeIcon className='h-5 w-5 mr-1' />
-                            Home
+                            AI Resume Builder
                         </Link>
-                        <Link
-                            to='/chat'
-                            className='flex items-center text-gray-700 hover:text-blue-600'
-                        >
-                            <ChatBubbleLeftIcon className='h-5 w-5 mr-1' />
-                            AI Chat
-                        </Link>
-                        <Link
-                            to='/templates'
-                            className='flex items-center text-gray-700 hover:text-blue-600'
-                        >
-                            <DocumentTextIcon className='h-5 w-5 mr-1' />
-                            Templates
-                        </Link>
+                    </div>
+
+                    <div className='flex items-center space-x-8'>
+                        {user ? (
+                            <>
+                                <Link
+                                    to='/chat'
+                                    className='text-gray-700 hover:text-blue-600'
+                                >
+                                    AI Chat
+                                </Link>
+                                <Link
+                                    to='/templates'
+                                    className='text-gray-700 hover:text-blue-600'
+                                >
+                                    Templates
+                                </Link>
+                                <button
+                                    onClick={handleLogout}
+                                    className='text-gray-700 hover:text-blue-600'
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    to='/signin'
+                                    className='text-gray-700 hover:text-blue-600'
+                                >
+                                    Sign In
+                                </Link>
+                                <Link
+                                    to='/signup'
+                                    className='text-gray-700 hover:text-blue-600'
+                                >
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
